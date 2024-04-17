@@ -1,0 +1,23 @@
+---
+version: "3"
+
+services:
+  portmap-server-rootless:
+    image: docker.io/dmotte/portmap-server-rootless:latest
+    build: build
+    restart: always
+    network_mode: bridge
+    ports:
+      - "2222:2222"
+      - "8001:8001"
+      - "8002:8002"
+      - "8003:8003"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ssh-host-keys:/ssh-host-keys
+      - ./ssh-client-keys:/ssh-client-keys
+    command: 8001 8002 8003
+
+volumes:
+  ssh-host-keys: {}
