@@ -15,16 +15,31 @@ Inspired by: https://www.golinuxcloud.com/run-sshd-as-non-root-user-without-sudo
 
 > **Note**: this Docker image uses an **unprivileged user** to perform the remote port forwarding stuff. As a result, it will only be possible to use **port numbers > 1024**. However this is not a problem at all, since you can still leverage the **Docker port exposure feature** to bind to any port you want on your host (e.g. `-p "80:8080"`).
 
-TODO you need **host keys** for the OpenSSH server and to generate an **SSH key pair** for the client, TODO exactly as the other image. The differences are: you have just only one root (not many dirs per each user) and the volumes must be writable by the `portmap` user inside the container. TODO how to:
+The first things you need are **host keys** for the OpenSSH server and an **SSH key pair** for the client to be able to connect. See the usage example of [dmotte/docker-portmap-server](https://github.com/dmotte/docker-portmap-server) for how to get them.
+
+In general, the use of this image is very similar to [dmotte/docker-portmap-server](https://github.com/dmotte/docker-portmap-server), but:
+
+- the **SSH key pairs** go directly into the root of the `/ssh-client-keys` volume instead of subdirectories (because we have only a single regular user inside the container)
+- if you want the container to generate missing keys, the related **volume(s) must be writable** by the `portmap` user of the container; otherwise, the generated keys won't be written to the volume(s). For example, to **change the owner** user of the root of an empty volume, you can do something like:
 
 ```bash
 docker volume create myvol
 docker run --rm -v myvol:/v docker.io/library/busybox chown 100:101 /v
 ```
 
-TODO In the container command you need to specify [which ports can be bound](https://man.openbsd.org/sshd_config#PermitListen)
+In the container **command** you need to specify [which ports can be bound](https://man.openbsd.org/sshd_config#PermitListen), one for each argument. Example: `8001 8002 8003`
 
-TODO to start the server, see the other rootful image. The commands are very similar.
+Finally, you can start the server:
+
+```bash
+docker run -it --rm \
+    -v "$PWD/hostkeys:/ssh-host-keys" \
+    -v "$PWD/myclientkey.pub:/ssh-client-keys/myclientkey.pub:ro" \
+    -p80:8080 -p2222:2222 \
+    dmotte/portmap-server-rootless 8080
+```
+
+See [dmotte/docker-portmap-server](https://github.com/dmotte/docker-portmap-server) for further details on usage; it's very similar to this one.
 
 For a more complex example, refer to the [`docker-compose.yml`](docker-compose.yml) file.
 
