@@ -27,6 +27,12 @@ docker volume create myvol
 docker run --rm -v myvol:/v docker.io/library/busybox chown 100:101 /v
 ```
 
+> **Tip**: if you are using **Podman** and a **mounted directory** (bind mount) instead of a volume, this works too:
+>
+> ```bash
+> podman unshare chown 100:101 mydir
+> ```
+
 In the container **command** you need to specify [which ports can be bound](https://man.openbsd.org/sshd_config#PermitListen), one for each argument. Example: `8001 8002 8003`
 
 Finally, you can start the server:
