@@ -5,7 +5,7 @@
 [![GitHub main workflow](https://img.shields.io/github/actions/workflow/status/dmotte/docker-portmap-server-rootless/main.yml?branch=main&logo=github&label=main&style=flat-square)](https://github.com/dmotte/docker-portmap-server-rootless/actions)
 [![Docker Pulls](https://img.shields.io/docker/pulls/dmotte/portmap-server-rootless?logo=docker&style=flat-square)](https://hub.docker.com/r/dmotte/portmap-server-rootless)
 
-This is a :whale: **Docker image** containing an **OpenSSH server** that can be used for **remote port forwarding** only. This image is almost equivalent to [dmotte/docker-portmap-server](https://github.com/dmotte/docker-portmap-server) but it runs as a **non-root user**.
+This is a :whale: **Docker image** containing an **OpenSSH server** that can be used for **remote port forwarding** only (rootless version). This image is almost equivalent to [dmotte/docker-portmap-server](https://github.com/dmotte/docker-portmap-server) but it runs as a **non-root user**.
 
 Inspired by: https://www.golinuxcloud.com/run-sshd-as-non-root-user-without-sudo/
 
