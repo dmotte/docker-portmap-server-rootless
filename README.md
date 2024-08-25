@@ -33,7 +33,7 @@ docker run --rm -v myvol:/v docker.io/library/busybox chown 100:101 /v
 > podman unshare chown 100:101 mydir
 > ```
 
-In the container **command** you need to specify [which ports can be bound](https://man.openbsd.org/sshd_config#PermitListen), one for each argument. Example: `8001 8002 8003`
+In the `PERMIT_LISTEN` **environment variable** you need to specify [which ports can be bound](https://man.openbsd.org/sshd_config#PermitListen), separated by spaces. Example: `8001 8002 8003`
 
 Finally, you can start the server:
 
@@ -42,12 +42,22 @@ docker run -it --rm \
     -v "$PWD/hostkeys:/ssh-host-keys" \
     -v "$PWD/myclientkey.pub:/ssh-client-keys/myclientkey.pub:ro" \
     -p80:8080 -p2222:2222 \
-    dmotte/portmap-server-rootless 8080
+    -ePERMIT_LISTEN=8080 \
+    dmotte/portmap-server-rootless
 ```
 
 See [dmotte/docker-portmap-server](https://github.com/dmotte/docker-portmap-server) for further details on usage; it's very similar to this one.
 
 For a more complex example, refer to the [`docker-compose.yml`](docker-compose.yml) file.
+
+### Environment variables
+
+List of supported **environment variables**:
+
+| Variable             | Required         | Description                                                      |
+| -------------------- | ---------------- | ---------------------------------------------------------------- |
+| `KEEPALIVE_INTERVAL` | No (default: 30) | Value for the `ClientAliveInterval` option of the OpenSSH server |
+| `PERMIT_LISTEN`      | Yes              | Value for the `PermitListen` option of the OpenSSH server        |
 
 ## Development
 

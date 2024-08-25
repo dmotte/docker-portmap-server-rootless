@@ -2,6 +2,9 @@
 
 set -ex
 
+keepalive_interval=${KEEPALIVE_INTERVAL:-30}
+permit_listen=${PERMIT_LISTEN:?}
+
 ################################################################################
 
 # Create the temporary directory for host keys generation
@@ -39,4 +42,7 @@ install -m600 <(cat /ssh-client-keys/*.pub 2>/dev/null || :) \
 
 # Start the OpenSSH Server with "exec" to ensure it receives all the stop
 # signals correctly
-exec /usr/sbin/sshd -Def ~/sshd/sshd_config -oPermitListen="$*"
+exec /usr/sbin/sshd -Def ~/sshd/sshd_config \
+    -oClientAliveInterval="$keepalive_interval" \
+    -oPermitListen="$permit_listen" \
+    "$@"

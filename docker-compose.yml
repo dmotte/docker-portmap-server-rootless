@@ -15,7 +15,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ssh-host-keys:/ssh-host-keys
       - ./ssh-client-keys:/ssh-client-keys
-    command: 8001 8002 8003
+    environment:
+      PERMIT_LISTEN: 8001 8002 8003
 
 volumes:
   ssh-host-keys: {}
