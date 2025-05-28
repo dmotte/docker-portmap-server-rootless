@@ -34,8 +34,9 @@ if [ -z "$(find /ssh-client-keys -mindepth 1 -maxdepth 1 -type f -name \*.pub)" 
         -f /ssh-client-keys/ssh_client_key || :
 fi
 
+# Note: not using install's "-T" flag as it's not supported in Alpine
 # shellcheck disable=SC3001
-install -Tm600 <(cat /ssh-client-keys/*.pub 2>/dev/null || :) \
+install -m600 <(cat /ssh-client-keys/*.pub 2>/dev/null || :) \
     ~/.ssh/authorized_keys
 
 ################################################################################
