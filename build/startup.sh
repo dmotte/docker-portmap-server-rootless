@@ -35,7 +35,7 @@ if [ -z "$(find /ssh-client-keys -mindepth 1 -maxdepth 1 -type f -name \*.pub)" 
 fi
 
 # shellcheck disable=SC3001
-install -m600 <(cat /ssh-client-keys/*.pub 2>/dev/null || :) \
+install -Tm600 <(cat /ssh-client-keys/*.pub 2>/dev/null || :) \
     ~/.ssh/authorized_keys
 
 ################################################################################
