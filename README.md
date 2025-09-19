@@ -19,8 +19,8 @@ The first things you need are **host keys** for the OpenSSH server and an **SSH 
 
 In general, the use of this image is very similar to [dmotte/docker-portmap-server](https://github.com/dmotte/docker-portmap-server), but:
 
-- the **SSH key pairs** go directly into the root of the `/ssh-client-keys` volume instead of subdirectories (because we have only a single regular user inside the container)
-- if you want the container to generate missing keys, the related **volume(s) must be writable** by the `portmap` user of the container; otherwise, the generated keys won't be written to the volume(s). For example, to **change the owner** user of the root of an empty volume, you can do something like:
+- The **SSH key pairs** go directly into the root of the `/ssh-client-keys` volume instead of subdirectories (because we have only a single regular user inside the container)
+- If you want the container to generate missing keys, the related **volume(s) must be writable** by the `portmap` user of the container; otherwise, the generated keys won't be written to the volume(s). For example, to **change the owner** user of the root of an empty volume, you can do something like:
 
 ```bash
 docker volume create myvol
