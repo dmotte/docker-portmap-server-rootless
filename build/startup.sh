@@ -8,22 +8,22 @@ permit_listen=${PERMIT_LISTEN:?}
 ################################################################################
 
 # Create the temporary directory for host keys generation
-mkdir -p ~/sshd/etc/ssh
+mkdir -pv ~/sshd/etc/ssh
 
 # Get host keys from the volume
-install -m600 -t ~/sshd/etc/ssh /ssh-host-keys/ssh_host_*_key 2>/dev/null || :
-install -m644 -t ~/sshd/etc/ssh /ssh-host-keys/ssh_host_*_key.pub 2>/dev/null || :
+install -vm600 -t ~/sshd/etc/ssh /ssh-host-keys/ssh_host_*_key 2>/dev/null || :
+install -vm644 -t ~/sshd/etc/ssh /ssh-host-keys/ssh_host_*_key.pub 2>/dev/null || :
 
 # Generate the missing host keys
 ssh-keygen -Af ~/sshd
 
 # Move the host keys out of the temporary directory
-mv -t ~/sshd ~/sshd/etc/ssh/*
+mv -vt ~/sshd ~/sshd/etc/ssh/*
 rm -r ~/sshd/etc
 
 # Copy the (previously missing) generated host keys to the volume
-cp -nt/ssh-host-keys ~/sshd/ssh_host_*_key 2>/dev/null || :
-cp -nt/ssh-host-keys ~/sshd/ssh_host_*_key.pub 2>/dev/null || :
+cp -nvt/ssh-host-keys ~/sshd/ssh_host_*_key 2>/dev/null || :
+cp -nvt/ssh-host-keys ~/sshd/ssh_host_*_key.pub 2>/dev/null || :
 
 ################################################################################
 

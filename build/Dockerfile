@@ -8,7 +8,7 @@ EXPOSE 2222
 COPY --chown=root:root --chmod=755 startup.sh /
 
 RUN addgroup -S portmap && adduser -S portmap -G portmap && \
-    install -oportmap -gportmap -dm700 /ssh-host-keys /ssh-client-keys \
+    install -oportmap -gportmap -dvm700 /ssh-host-keys /ssh-client-keys \
     /home/portmap/sshd /home/portmap/.ssh
 
 USER portmap
