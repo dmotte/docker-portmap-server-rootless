@@ -15,4 +15,4 @@ USER portmap
 
 COPY --chown=portmap:portmap --chmod=644 sshd_config /home/portmap/sshd/
 
-ENTRYPOINT ["/startup.sh"]
+ENTRYPOINT ["/bin/ash", "/startup.sh"]
