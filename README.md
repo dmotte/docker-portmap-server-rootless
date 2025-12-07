@@ -24,13 +24,13 @@ In general, the use of this image is very similar to [dmotte/docker-portmap-serv
 
 ```bash
 docker volume create myvol
-docker run --rm -v myvol:/v docker.io/library/busybox chown 100:101 /v
+docker run --rm -v myvol:/v docker.io/library/busybox chown -v 100:101 /v
 ```
 
 > **Tip**: if you are using **Podman** and a **mounted directory** (bind mount) instead of a volume, this works too:
 >
 > ```bash
-> podman unshare chown 100:101 mydir
+> podman unshare chown -v 100:101 mydir
 > ```
 
 In the `PERMIT_LISTEN` **environment variable** you need to specify [which ports can be bound](https://man.openbsd.org/sshd_config#PermitListen), separated by spaces. Example: `8001 8002 8003`
