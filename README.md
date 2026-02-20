@@ -9,7 +9,7 @@ This is a :whale: **Docker image** containing an **OpenSSH server** that can be 
 
 Inspired by: https://www.golinuxcloud.com/run-sshd-as-non-root-user-without-sudo/
 
-> :package: This image is also on **Docker Hub** as [`dmotte/portmap-server-rootless`](https://hub.docker.com/r/dmotte/portmap-server-rootless) and runs on **several architectures** (e.g. amd64, arm64, ...). To see the full list of supported platforms, please refer to the [`.github/workflows/main.yml`](.github/workflows/main.yml) file. If you need an architecture which is currently unsupported, feel free to open an issue.
+> :package: This image is also on **Docker Hub** as [`dmotte/portmap-server-rootless`](https://hub.docker.com/r/dmotte/portmap-server-rootless) and runs on **several architectures** (e.g. amd64, arm64, ...). To see the full list of supported platforms, please refer to the [`.github/workflows/main.yml`](.github/workflows/main.yml) file. If you need an architecture that is currently unsupported, feel free to open an issue.
 
 ## Usage
 
