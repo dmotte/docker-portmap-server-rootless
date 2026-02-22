@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 keepalive_interval=${KEEPALIVE_INTERVAL:-30}
 permit_listen=${PERMIT_LISTEN:?}
@@ -36,7 +36,7 @@ fi
 
 # Note: not using install's "-T" flag as it's not supported in Alpine
 # shellcheck disable=SC3001
-install -m600 <(cat /ssh-client-keys/*.pub 2>/dev/null || :) \
+install -vm600 <(cat /ssh-client-keys/*.pub 2>/dev/null || :) \
     ~/.ssh/authorized_keys
 
 ################################################################################
